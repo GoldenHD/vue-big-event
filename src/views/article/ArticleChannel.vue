@@ -20,11 +20,11 @@
     })
 
     const onEditChannel = (row,$index)=>{
-       
+        dialog.value.open(row)
         console.log(row,$index)
     }
     const onDelChannel = (row,$index)=>{
-        dialog.value.open(row)
+        
         console.log(row,$index)
     }
 
@@ -32,6 +32,10 @@
 
     const onAddChannel = ()=>{
         dialog.value.open({})
+    }
+
+    const onSuccess = ()=>{
+        getChannelList()
     }
 
 </script>
@@ -59,7 +63,7 @@
             </template>
         </el-table>
 
-        <ChannelEdit ref="dialog"></ChannelEdit>
+        <ChannelEdit ref="dialog" @success="onSuccess"></ChannelEdit>
     </page-container>     
 </template>
 
