@@ -2,9 +2,11 @@
 import { User, Lock } from '@element-plus/icons-vue'
 import { ref,watch } from 'vue'
 import { userRegisterService,userLoginService } from '@/api/user'
-import { ElMessage } from 'element-plus'
 import { useUserStore } from '@/stores'
+import 'element-plus/es/components/message/style/css';
+
 import { useRouter } from 'vue-router'
+import { ElMessage } from 'element-plus';
 const isRegister = ref(false)
 //注册
 //整个用于提交的form数据对象

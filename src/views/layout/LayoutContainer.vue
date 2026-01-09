@@ -10,13 +10,35 @@ import {
   CaretBottom
 } from '@element-plus/icons-vue'
 import avatar from '@/assets/default.png'
+import 'element-plus/es/components/message-box/style/css';
+
 import {useUserStore} from '@/stores'
 import {onMounted} from 'vue'
+import router from '@/router'
+import { ElMessageBox } from 'element-plus';
 const userStore = useUserStore()
 
 onMounted(()=>{
     userStore.getUser()
 })
+
+const handleCommand =async (command)=>{
+    if (command === 'logout'){
+        await ElMessageBox.confirm('你确定要进行退出么','温馨提示',{
+            type:'warning',
+            confirmButtonText:'确认',
+            cancelButtonText:'取消'
+        })
+
+
+        //清除本地数据
+        router.push('/login')
+        userStore.removeToken()
+        userStore.setUser({})
+    }else{
+        router.push(`/user/${command}`)
+    }   
+}
 </script>
 
 <template>
@@ -71,11 +93,15 @@ onMounted(()=>{
     <el-container>
       <el-header>
         <div>电科第一帅：<strong>{{ userStore.user.nickname || userStore.user.username }}</strong></div>
-        <el-dropdown placement="bottom-end">
+        <!-- el-dropdown 下拉菜单 -->
+        <el-dropdown placement="bottom-end" @command="handleCommand">
+            <!-- 展示给用户默认看到的 -->
           <span class="el-dropdown__box">
             <el-avatar :src="userStore.user.user_pic || avatar" />
             <el-icon><CaretBottom /></el-icon>
           </span>
+
+          <!-- 折叠的下拉部分 -->
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item command="profile" :icon="User"
