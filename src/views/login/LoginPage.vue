@@ -72,6 +72,7 @@ const login = async ()=>{
   
 }
 
+
 watch(isRegister,()=>{
   formModel.value={
     username:'',
@@ -139,6 +140,7 @@ watch(isRegister,()=>{
           <el-button @click="register" class="button" type="primary" auto-insert-space>
             注册
           </el-button>
+        
         </el-form-item>
         <el-form-item class="flex">
           <el-link type="info" :underline="false" @click="isRegister = false">

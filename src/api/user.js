@@ -13,3 +13,8 @@ export const userLoginService = ({username,password})=>{
         password
     })
 }
+
+//获取用户基本信息
+export const userGetInfoService = ()=>{
+   return request.get('/my/userinfo')
+}
