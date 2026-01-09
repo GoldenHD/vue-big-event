@@ -3,7 +3,6 @@
     import { artEditChannelService,artAddChannelService } from '@/api/article'
     import { ElMessage } from 'element-plus'
     import {ref} from 'vue' 
-    import 'element-plus/es/components/message/style/css';
     const dialogVisible = ref(false)
     const formModel = ref({
         cate_name:'',
