@@ -4,8 +4,11 @@
     import { Plus } from '@element-plus/icons-vue'
     import { QuillEditor } from '@vueup/vue-quill'
     import '@vueup/vue-quill/dist/vue-quill.snow.css'
-    import { artPublishService } from '@/api/article'
+    import { artPublishService,artGetDetailService,artEditDetailService } from '@/api/article'
     import { ElMessage } from 'element-plus'
+    import { baseURL } from '@/utils/request'
+    import axios from 'axios'
+    
     //控制抽屉隐藏
     const visibleDrawer = ref(false)
 
@@ -45,7 +48,10 @@
         //发请求
         if(formModel.value.id){
             //编辑
-            console.log('编辑操作')
+            await artEditDetailService(fd)
+            ElMessage.success('修改成功')
+            visibleDrawer.value = false
+            emit('success','edit')
         }else{
             //添加操作
             await artPublishService(fd)
@@ -55,19 +61,46 @@
 
         }
     }
+    //将网络图片地址转换为File对象的函数
+    async function imageUrlToFileObject(imgUrl,filename){
+        try{
+            //使用Axios下载图片数据
+            const response = await axios.get(imgUrl,{responseType:'arraybuffer'})
+
+            const blob = new Blob([response.data],{
+                type:response.headers['content-type']
+            })
+
+            const file = new File([blob],filename,{
+                type:response.headers['content-type']
+            })
+
+            return file
+
+        }catch(error){
+            console.error('Error converting image URL to File object',error)
+            return null
+        }
+    }
 
     const editorRef = ref()
-    const open = (row) =>{
+    const open = async (row) =>{
         visibleDrawer.value = true //显示抽屉
         if(row.id){
             //需要基于row.id发送请求，获取编辑对应的详情数据进行回显
-            console.log('编辑回显')
+            const res = await artGetDetailService(row.id)
+            formModel.value = res.data.data
+            //图片单独回显
+            imgUrl.value = baseURL + formModel.value.cover_img
+            //注意：提交给后台需要的数据格式是file对象格式
+            //需要将网络图片地址转换成file对象存储起来
+            const file = await imageUrlToFileObject(imgUrl.value,formModel.value.cover_img)
+            formModel.value.cover_img = file
         }else{
             formModel.value = {...defaultForm} //基于默认数据重置form数据
             //这里重置了表单数据，但图片上传img地址，富文本编辑器内容需要手动重置
             imgUrl.value = ''
             editorRef.value.setHTML('')
-            console.log('添加')
         }
     }
 

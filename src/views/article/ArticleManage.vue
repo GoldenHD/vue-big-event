@@ -5,6 +5,7 @@
     import { artGetListService } from '@/api/article'
     import {formatTime} from '@/utils/format.js'
     import ArticleEdit from './components/ArticleEdit.vue'
+    import { ElMessage } from 'element-plus'
     const articleList = ref([])//文章列表
     const total = ref(0)//总条数
     const loading = ref(false)
@@ -32,8 +33,8 @@
         articleEditRef.value.open(row)
     }
     //删除逻辑
-    const onDelArticle = (row)=>{
-        console.log(row)
+    const onDelArticle = ()=>{
+        ElMessage.error('发出去的文章怎么能收回喵')
     }
 
     //处理分页逻辑
@@ -82,6 +83,7 @@
 
         }else{
             //如果是编辑直接渲染当前页
+            
 
         }
         getArticleList()
@@ -133,7 +135,7 @@
                     <!-- 利用作用域插槽row可以获取当前行的数据 -->
                     <template #default="{row}">
                         <el-button circle plain type="primary" :icon="Edit" @click="onEditArticle(row)" ></el-button>
-                        <el-button circle plain type="danger" :icon="Delete" @click="onDelArticle(row)"></el-button>
+                        <el-button circle plain type="danger" :icon="Delete" @click="onDelArticle()"></el-button>
                         
                     </template>
                 </el-table-column>

@@ -29,3 +29,11 @@ export const artGetListService = (params) => request.get('/my/article/list', {
 
 //发布文章
 export const artPublishService = (data) => request.post('/my/article/add', data)
+
+//获取文章详情
+export const artGetDetailService = (id) => request.get('/my/article/info', {
+    params: { id }
+})
+
+//编辑文章
+export const artEditDetailService = (data) => request.put('/my/article/info', data)
