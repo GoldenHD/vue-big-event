@@ -4,9 +4,11 @@
     import ChannelSelect from './components/ChannelSelect.vue'
     import { artGetListService } from '@/api/article'
     import {formatTime} from '@/utils/format.js'
+    import ArticleEdit from './components/ArticleEdit.vue'
     const articleList = ref([])//文章列表
     const total = ref(0)//总条数
     const loading = ref(false)
+    
    
     //定义请求参数对象
     const params= ref({
@@ -27,7 +29,7 @@
     getArticleList()
     //编辑逻辑
     const onEditArticle = (row)=>{
-        console.log(row)
+        articleEditRef.value.open(row)
     }
     //删除逻辑
     const onDelArticle = (row)=>{
@@ -63,19 +65,41 @@
         params.value.pagenum = 1
 
     }
+    //添加逻辑
+    const articleEditRef = ref()
+
+    const onAddArticle = ()=>{
+    articleEditRef.value.open({})
+}
+    //添加或者编辑成功的回调
+    const onSuccess = (type)=>{
+        if(type === 'add'){
+            //如果是添加渲染最后一页
+            const lastPage = Math.ceil((total.value+1) / params.value.pagesize)
+            //更新成最大页码数再渲染
+            params.value.pagenum = lastPage
+            
+
+        }else{
+            //如果是编辑直接渲染当前页
+
+        }
+        getArticleList()
+    }
+
 </script>
 
 
 <template>
     <page-container title="文章管理">
         <template #extra>
-            <el-button>添加文章</el-button>
+            <el-button type="primary" @click="onAddArticle">添加文章</el-button>
         </template>
 
             <!-- 表单区域 -->
             <el-form inline>
                 <el-form-item label="文章分类：">
-                    <ChannelSelect v-model="params.cate_id"></ChannelSelect>
+                    <ChannelSelect v-model="params.cate_id" width="220px"></ChannelSelect>
                 </el-form-item>
                 <el-form-item label="发布状态：">
                     <!-- 这里后台标记发布章台，就是通过中文标记的 -->
@@ -127,6 +151,9 @@
                 @current-change="onCurrentChange"
                 style="margin-top:20px; justify-content: flex-end;"
               />
+
+              <!-- 抽屉 -->
+             <article-edit ref="articleEditRef" @success="onSuccess"></article-edit>
                 
               
     </page-container>     

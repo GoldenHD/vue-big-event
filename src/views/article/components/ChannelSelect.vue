@@ -5,6 +5,9 @@
     defineProps({
         modelValue:{
             type:[Number,String]
+        },
+        width:{
+            type:String
         }
     })
 
@@ -20,7 +23,7 @@
 
 <template>
     <el-select 
-    style="width:220px" 
+    :style="{width}" 
     :modelValue="modelValue"
     @update:modelValue="emit('update:modelValue',$event)"
     
