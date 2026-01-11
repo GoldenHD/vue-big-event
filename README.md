@@ -1,44 +1,9 @@
-# Vue3-big-event-admin
+完结撒花！
 
-This template should help get you started developing with Vue 3 in Vite.
+作为本人的第一个Vue3项目，跟着网上的教程一步一步敲出来的，
+还是蛮有骄傲感，虽然其中很多模块语言用法还是一知半解，但还是十分开心
 
-## Recommended IDE Setup
+Vue中语法和原生js项目还是区别很大，其实学到后面，感觉就是面向Element Plus编程（bushi）
+作为本人的第一个正式项目，希望它继续见证本人的前端小白进阶之路，总有一天我能闭着眼写出这样的项目！
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Recommended Browser Setup
-
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-pnpm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-pnpm dev
-```
-
-### Compile and Minify for Production
-
-```sh
-pnpm build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm lint
-```
+前端upupup!

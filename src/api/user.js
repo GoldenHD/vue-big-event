@@ -18,3 +18,18 @@ export const userLoginService = ({username,password})=>{
 export const userGetInfoService = ()=>{
    return request.get('/my/userinfo')
 }
+
+//更新用户基本信息
+export const userUpdateInfoService = (data)=>{
+    return request.put('/my/userinfo',data)
+}
+
+//更新用户头像
+export const userUpdateAvatarService = (avatar)=>{
+    return request.patch('/my/update/avatar',{avatar})
+}
+
+//更新用户密码
+export const userUpdatePwdService = ({old_pwd,new_pwd,re_pwd})=>{
+    return request.patch('/my/updatepwd',{old_pwd,new_pwd,re_pwd})
+}
